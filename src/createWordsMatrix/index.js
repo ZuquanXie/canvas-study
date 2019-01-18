@@ -2,7 +2,7 @@
  * 从一张黑底白字的位图片中获取到文字的点矩阵
  * 每个文字占一个相同大小（即fontSize参数）的正四边形，且紧密排列
  */
-
+import { createCanvas, loadImage } from '../tools';
 import textImage from './example.jpg';
 
 const canvasWidth = 400;
@@ -136,39 +136,4 @@ function createWordsPixelData(imageData, fontSize) {
         result[wordIndex] = [[pixel]];
     }
     return result;
-}
-
-/**
- * 异步加载图片
- * @param src
- * @return Promise
- * @resolve img{Object}
- */
-function loadImage(src) {
-    return new Promise((resolve) => {
-        const img = document.createElement('img');
-        img.onload = () => {
-            resolve(img);
-        };
-        img.src = src;
-    });
-}
-
-/**
- * 创建画布
- * @param width
- * @param height
- * @param [container] 画布容器元素（DOM），有container参数时，创建完画布会自动将画布添加到容器元素内
- * @return {{canvas: HTMLElement, ctx: CanvasRenderingContext2D | WebGLRenderingContext}}
- */
-function createCanvas({ width = 400, height = 300, container }) {
-    const canvas = document.createElement('canvas');
-    let ctx;
-    canvas.width = width;
-    canvas.height = height;
-    ctx = canvas.getContext('2d');
-    if (container) {
-        container.appendChild(canvas);
-    }
-    return { canvas, ctx }
 }
